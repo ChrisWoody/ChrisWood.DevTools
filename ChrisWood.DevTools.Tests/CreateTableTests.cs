@@ -40,6 +40,18 @@ namespace ChrisWood.DevTools.Tests
 )", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithLongProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithLongProperty>();
+
+            Assert.Equal(
+@"CREATE TABLE TestCreateTableClassWithLongProperty
+(
+    TheLongProperty bigint
+)", result);
+        }
+
         // generics and types
 
         // different names for class
@@ -55,5 +67,10 @@ namespace ChrisWood.DevTools.Tests
     public class TestCreateTableClassWithIntProperty
     {
         public int TheIntProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithLongProperty
+    {
+        public long TheLongProperty { get; set; }
     }
 }
