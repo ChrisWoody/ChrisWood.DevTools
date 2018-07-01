@@ -28,6 +28,18 @@ namespace ChrisWood.DevTools.Tests
 )", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithIntProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>();
+
+            Assert.Equal(
+@"CREATE TABLE TestCreateTableClassWithIntProperty
+(
+    TheIntProperty int
+)", result);
+        }
+
         // generics and types
 
         // different names for class
@@ -38,5 +50,10 @@ namespace ChrisWood.DevTools.Tests
     public class TestCreateTableClassWithStringProperty
     {
         public string TheStringProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithIntProperty
+    {
+        public int TheIntProperty { get; set; }
     }
 }

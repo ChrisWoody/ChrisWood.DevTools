@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ChrisWood.DevTools
@@ -17,12 +18,20 @@ namespace ChrisWood.DevTools
 
             foreach (var property in type.GetProperties())
             {
-                sb.AppendLine($"    {property.Name} varchar(255)");
+                var sqlType = TypeToSqlTypeMap[property.PropertyType];
+
+                sb.AppendLine($"    {property.Name} {sqlType}");
             }
 
             sb.Append(")");
 
             return sb.ToString();
         }
+
+        private static readonly Dictionary<Type, string> TypeToSqlTypeMap = new Dictionary<Type, string>
+        {
+            {typeof(string), "varchar(255)"},
+            {typeof(int), "int"},
+        };
     }
 }
