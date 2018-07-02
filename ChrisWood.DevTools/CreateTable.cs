@@ -33,6 +33,8 @@ namespace ChrisWood.DevTools
             {typeof(string), "varchar(255)"},
             {typeof(int), "int"},
             {typeof(long), "bigint"},
+            {typeof(short), "smallint"},
+            {typeof(byte), "tinyint"},
         };
     }
 }
