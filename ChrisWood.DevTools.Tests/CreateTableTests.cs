@@ -53,13 +53,25 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("CREATE TABLE TestCreateTableClassWithByteProperty\r\n(\r\n    TheByteProperty tinyint\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithBoolProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithBoolProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithBoolProperty\r\n(\r\n    TheBoolProperty bit\r\n)", result);
+        }
+
         // generics and types
 
         // private properties don't appear
 
         // inherited properties
+        
+        // how to handle internal?
 
-        // how to handle objects or enums
+        // how to handle objects or enums?
+        
+        // nullable/notnullable
     }
 
     public class TestCreateTableClassWithoutProperties { }
@@ -87,5 +99,10 @@ namespace ChrisWood.DevTools.Tests
     public class TestCreateTableClassWithByteProperty
     {
         public byte TheByteProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithBoolProperty
+    {
+        public bool TheBoolProperty { get; set; }
     }
 }

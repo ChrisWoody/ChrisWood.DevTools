@@ -35,6 +35,7 @@ namespace ChrisWood.DevTools
             {typeof(long), "bigint"},
             {typeof(short), "smallint"},
             {typeof(byte), "tinyint"},
+            {typeof(bool), "bit"},
         };
     }
 }
