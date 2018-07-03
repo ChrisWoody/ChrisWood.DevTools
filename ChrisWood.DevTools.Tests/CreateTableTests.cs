@@ -61,6 +61,62 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("CREATE TABLE TestCreateTableClassWithBoolProperty\r\n(\r\n    TheBoolProperty bit\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithCharProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithCharProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithCharProperty\r\n(\r\n    TheCharProperty char\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithDecimalProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithDoubleProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithDoubleProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithDoubleProperty\r\n(\r\n    TheDoubleProperty float\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithFloatProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithFloatProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithFloatProperty\r\n(\r\n    TheFloatProperty float\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithGuidProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithGuidProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithGuidProperty\r\n(\r\n    TheGuidProperty uniqueidentifier\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithDateTimeProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithDateTimeProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithDateTimeProperty\r\n(\r\n    TheDateTimeProperty datetime2\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithDateTimeOffsetProperty()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithDateTimeOffsetProperty>();
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithDateTimeOffsetProperty\r\n(\r\n    TheDateTimeOffsetProperty datetimeoffset\r\n)", result);
+        }
+
         // generics and types
 
         // private properties don't appear
@@ -104,5 +160,40 @@ namespace ChrisWood.DevTools.Tests
     public class TestCreateTableClassWithBoolProperty
     {
         public bool TheBoolProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithCharProperty
+    {
+        public char TheCharProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithDecimalProperty
+    {
+        public decimal TheDecimalProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithDoubleProperty
+    {
+        public double TheDoubleProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithFloatProperty
+    {
+        public float TheFloatProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithGuidProperty
+    {
+        public Guid TheGuidProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithDateTimeProperty
+    {
+        public DateTime TheDateTimeProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithDateTimeOffsetProperty
+    {
+        public DateTimeOffset TheDateTimeOffsetProperty { get; set; }
     }
 }

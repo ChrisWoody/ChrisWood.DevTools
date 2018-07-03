@@ -36,6 +36,13 @@ namespace ChrisWood.DevTools
             {typeof(short), "smallint"},
             {typeof(byte), "tinyint"},
             {typeof(bool), "bit"},
+            {typeof(char), "char"},
+            {typeof(decimal), "decimal"},
+            {typeof(double), "float"},
+            {typeof(float), "float"},
+            {typeof(Guid), "uniqueidentifier"},
+            {typeof(DateTime), "datetime2"},
+            {typeof(DateTimeOffset), "datetimeoffset"},
         };
     }
 }
