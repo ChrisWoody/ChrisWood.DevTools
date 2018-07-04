@@ -10,7 +10,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithoutProperties>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithoutProperties\r\n(\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithoutProperties\r\n(\r\n)", result);
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar(255) null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar(255) null\r\n)", result);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty int not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty int not null\r\n)", result);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableIntProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableIntProperty\r\n(\r\n    TheNullableIntProperty int null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableIntProperty\r\n(\r\n    TheNullableIntProperty int null\r\n)", result);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithLongProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithLongProperty\r\n(\r\n    TheLongProperty bigint not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithLongProperty\r\n(\r\n    TheLongProperty bigint not null\r\n)", result);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableLongProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableLongProperty\r\n(\r\n    TheNullableLongProperty bigint null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableLongProperty\r\n(\r\n    TheNullableLongProperty bigint null\r\n)", result);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithShortProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithShortProperty\r\n(\r\n    TheShortProperty smallint not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithShortProperty\r\n(\r\n    TheShortProperty smallint not null\r\n)", result);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableShortProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableShortProperty\r\n(\r\n    TheNullableShortProperty smallint null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableShortProperty\r\n(\r\n    TheNullableShortProperty smallint null\r\n)", result);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithByteProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithByteProperty\r\n(\r\n    TheByteProperty tinyint not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithByteProperty\r\n(\r\n    TheByteProperty tinyint not null\r\n)", result);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableByteProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableByteProperty\r\n(\r\n    TheNullableByteProperty tinyint null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableByteProperty\r\n(\r\n    TheNullableByteProperty tinyint null\r\n)", result);
         }
 
         [Fact]
@@ -90,7 +90,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithBoolProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithBoolProperty\r\n(\r\n    TheBoolProperty bit not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithBoolProperty\r\n(\r\n    TheBoolProperty bit not null\r\n)", result);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableBoolProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableBoolProperty\r\n(\r\n    TheNullableBoolProperty bit null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableBoolProperty\r\n(\r\n    TheNullableBoolProperty bit null\r\n)", result);
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithCharProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithCharProperty\r\n(\r\n    TheCharProperty char not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithCharProperty\r\n(\r\n    TheCharProperty char not null\r\n)", result);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableCharProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableCharProperty\r\n(\r\n    TheNullableCharProperty char null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableCharProperty\r\n(\r\n    TheNullableCharProperty char null\r\n)", result);
         }
 
         [Fact]
@@ -122,7 +122,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal not null\r\n)", result);
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableDecimalProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableDecimalProperty\r\n(\r\n    TheNullableDecimalProperty decimal null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableDecimalProperty\r\n(\r\n    TheNullableDecimalProperty decimal null\r\n)", result);
         }
 
         [Fact]
@@ -138,7 +138,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithDoubleProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithDoubleProperty\r\n(\r\n    TheDoubleProperty float not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithDoubleProperty\r\n(\r\n    TheDoubleProperty float not null\r\n)", result);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableDoubleProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableDoubleProperty\r\n(\r\n    TheNullableDoubleProperty float null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableDoubleProperty\r\n(\r\n    TheNullableDoubleProperty float null\r\n)", result);
         }
 
         [Fact]
@@ -154,7 +154,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithFloatProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithFloatProperty\r\n(\r\n    TheFloatProperty float not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithFloatProperty\r\n(\r\n    TheFloatProperty float not null\r\n)", result);
         }
 
         [Fact]
@@ -162,7 +162,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableFloatProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableFloatProperty\r\n(\r\n    TheNullableFloatProperty float null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableFloatProperty\r\n(\r\n    TheNullableFloatProperty float null\r\n)", result);
         }
 
         [Fact]
@@ -170,7 +170,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithGuidProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithGuidProperty\r\n(\r\n    TheGuidProperty uniqueidentifier not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithGuidProperty\r\n(\r\n    TheGuidProperty uniqueidentifier not null\r\n)", result);
         }
 
         [Fact]
@@ -178,7 +178,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableGuidProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableGuidProperty\r\n(\r\n    TheNullableGuidProperty uniqueidentifier null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableGuidProperty\r\n(\r\n    TheNullableGuidProperty uniqueidentifier null\r\n)", result);
         }
 
         [Fact]
@@ -186,7 +186,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithDateTimeProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithDateTimeProperty\r\n(\r\n    TheDateTimeProperty datetime2 not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithDateTimeProperty\r\n(\r\n    TheDateTimeProperty datetime2 not null\r\n)", result);
         }
 
         [Fact]
@@ -194,7 +194,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableDateTimeProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableDateTimeProperty\r\n(\r\n    TheNullableDateTimeProperty datetime2 null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableDateTimeProperty\r\n(\r\n    TheNullableDateTimeProperty datetime2 null\r\n)", result);
         }
 
         [Fact]
@@ -202,7 +202,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithDateTimeOffsetProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithDateTimeOffsetProperty\r\n(\r\n    TheDateTimeOffsetProperty datetimeoffset not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithDateTimeOffsetProperty\r\n(\r\n    TheDateTimeOffsetProperty datetimeoffset not null\r\n)", result);
         }
 
         [Fact]
@@ -210,7 +210,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableDateTimeOffsetProperty>();
 
-            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableDateTimeOffsetProperty\r\n(\r\n    TheNullableDateTimeOffsetProperty datetimeoffset null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableDateTimeOffsetProperty\r\n(\r\n    TheNullableDateTimeOffsetProperty datetimeoffset null\r\n)", result);
         }
 
 

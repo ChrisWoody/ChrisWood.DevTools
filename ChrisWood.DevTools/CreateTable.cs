@@ -12,7 +12,7 @@ namespace ChrisWood.DevTools
             var type = typeof(T);
             var tableName = typeof(T).Name;
 
-            sb.Append("CREATE TABLE ");
+            sb.Append("create table ");
             sb.AppendLine(tableName);
             sb.AppendLine("(");
 
