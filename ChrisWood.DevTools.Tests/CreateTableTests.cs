@@ -213,6 +213,21 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("create table TestCreateTableClassWithNullableDateTimeOffsetProperty\r\n(\r\n    TheNullableDateTimeOffsetProperty datetimeoffset null\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithUppercaseSqlSyntax_AndNotNull()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{SqlSyntaxIsUppercase = true});
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty INT NOT NULL\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithNullableIntProperty_AndNull()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithNullableIntProperty>(new CreateTableOptions{SqlSyntaxIsUppercase = true});
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableIntProperty\r\n(\r\n    TheNullableIntProperty INT NULL\r\n)", result);
+        }
 
         // generics and types
 

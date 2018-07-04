@@ -8,19 +8,24 @@ namespace ChrisWood.DevTools
     {
         public static string Generate<T>()
         {
+            return Generate<T>(CreateTableOptions.Default);
+        }
+
+        public static string Generate<T>(CreateTableOptions options)
+        {
             var sb = new StringBuilder();
             var type = typeof(T);
             var tableName = typeof(T).Name;
 
-            sb.Append("create table ");
+            sb.Append("create table ".ChangeCasing(options));
             sb.AppendLine(tableName);
             sb.AppendLine("(");
 
             foreach (var property in type.GetProperties())
             {
-                var sqlType = TypeToSqlTypeMap[property.PropertyType];
+                var sqlType = TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
                 var isNullable = IsTypeNullable(property.PropertyType);
-                var nullField = isNullable ? "null" : "not null";
+                var nullField = (isNullable ? "null" : "not null").ChangeCasing(options);
 
                 sb.AppendLine($"    {property.Name} {sqlType} {nullField}");
             }
@@ -63,5 +68,10 @@ namespace ChrisWood.DevTools
             {typeof(DateTimeOffset), "datetimeoffset"},
             {typeof(DateTimeOffset?), "datetimeoffset"},
         };
+
+        private static string ChangeCasing(this string value, CreateTableOptions options)
+        {
+            return options.SqlSyntaxIsUppercase ? value.ToUpperInvariant() : value.ToLowerInvariant();
+        }
     }
 }
