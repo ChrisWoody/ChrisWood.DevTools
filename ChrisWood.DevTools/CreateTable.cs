@@ -23,11 +23,15 @@ namespace ChrisWood.DevTools
 
             foreach (var property in type.GetProperties())
             {
+                var identifier = options.DelimitIdentifiers ? $"[{property.Name}]" : property.Name;
+
                 var sqlType = TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
+                var sqlTypeFormatted = options.DelimitTypes ? $"[{sqlType}]" : sqlType;
+
                 var isNullable = IsTypeNullable(property.PropertyType);
                 var nullField = (isNullable ? "null" : "not null").ChangeCasing(options);
 
-                sb.AppendLine($"    {property.Name} {sqlType} {nullField}");
+                sb.AppendLine($"    {identifier} {sqlTypeFormatted} {nullField}");
             }
 
             sb.Append(")");

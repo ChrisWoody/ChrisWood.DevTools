@@ -229,6 +229,30 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableIntProperty\r\n(\r\n    TheNullableIntProperty INT NULL\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithIdentifierDelimiter()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitIdentifiers = true});
+
+            Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    [TheIntProperty] int not null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithTypeDelimiter()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitTypes = true});
+
+            Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty [int] not null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithIdentifierDelimiter_AndTypeDelimiter()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitIdentifiers = true, DelimitTypes = true});
+
+            Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    [TheIntProperty] [int] not null\r\n)", result);
+        }
+
         // generics and types
 
         // private properties don't appear
