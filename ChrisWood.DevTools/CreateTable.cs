@@ -28,15 +28,36 @@ namespace ChrisWood.DevTools
                 var sqlType = TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
                 var sqlTypeFormatted = options.DelimitTypes ? $"[{sqlType}]" : sqlType;
 
+                var sizeField = GetSizeField(property.PropertyType, options);
+
                 var isNullable = IsTypeNullable(property.PropertyType);
                 var nullField = (isNullable ? "null" : "not null").ChangeCasing(options);
 
-                sb.AppendLine($"    {identifier} {sqlTypeFormatted} {nullField}");
+                sb.AppendLine($"    {identifier} {sqlTypeFormatted}{sizeField} {nullField}");
             }
 
             sb.Append(")");
 
             return sb.ToString();
+        }
+
+        private static string GetSizeField(Type type, CreateTableOptions options)
+        {
+            var actualSize = string.Empty;
+
+            if (type == typeof(string))
+            {
+                if (options.VarcharLength < 1)
+                    actualSize = "1";
+                else if (options.VarcharLength > 8000)
+                    actualSize = "max".ChangeCasing(options);
+                else
+                    actualSize = options.VarcharLength.ToString();
+
+                return $"({actualSize})";
+            }
+
+            return actualSize;
         }
 
         private static bool IsTypeNullable(Type type)
@@ -46,7 +67,7 @@ namespace ChrisWood.DevTools
 
         private static readonly Dictionary<Type, string> TypeToSqlTypeMap = new Dictionary<Type, string>
         {
-            {typeof(string), "varchar(255)"},
+            {typeof(string), "varchar"},
             {typeof(int), "int"},
             {typeof(int?), "int"},
             {typeof(long), "bigint"},

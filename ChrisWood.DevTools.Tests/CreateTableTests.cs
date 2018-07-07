@@ -222,7 +222,7 @@ namespace ChrisWood.DevTools.Tests
         }
 
         [Fact]
-        public void ReturnsCreateTableScript_WithClassWithNullableIntProperty_AndNull()
+        public void ReturnsCreateTableScript_WithUppercaseSqlSyntax_AndNull()
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableIntProperty>(new CreateTableOptions{SqlSyntaxIsUppercase = true});
 
@@ -252,6 +252,41 @@ namespace ChrisWood.DevTools.Tests
 
             Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    [TheIntProperty] [int] not null\r\n)", result);
         }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndTypeDelimiter_AndDefaultTypeLength()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{DelimitTypes = true});
+
+            Assert.Equal("create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty [varchar](255) null\r\n)", result);
+        }
+
+        [Theory]
+        [InlineData(-10, "1")]
+        [InlineData(-1, "1")]
+        [InlineData(0, "1")]
+        [InlineData(1, "1")]
+        [InlineData(123, "123")]
+        [InlineData(6541, "6541")]
+        [InlineData(8000, "8000")]
+        [InlineData(8001, "max")]
+        [InlineData(9001, "max")]
+        [InlineData(int.MaxValue, "max")]
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndLength(int length, string expectedLength)
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharLength = length});
+
+            Assert.Equal($"create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar({expectedLength}) null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndLength_AndUppercase()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharLength = 8001, SqlSyntaxIsUppercase = true});
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty VARCHAR(MAX) NULL\r\n)", result);
+        }
+
 
         // generics and types
 

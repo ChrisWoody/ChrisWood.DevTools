@@ -7,5 +7,6 @@
         public bool SqlSyntaxIsUppercase { get; set; }
         public bool DelimitIdentifiers { get; set; }
         public bool DelimitTypes { get; set; }
+        public int VarcharLength { get; set; } = 255;
     }
 }
