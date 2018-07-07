@@ -122,7 +122,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>();
 
-            Assert.Equal("create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal not null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal(19,4) not null\r\n)", result);
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestCreateTableClassWithNullableDecimalProperty>();
 
-            Assert.Equal("create table TestCreateTableClassWithNullableDecimalProperty\r\n(\r\n    TheNullableDecimalProperty decimal null\r\n)", result);
+            Assert.Equal("create table TestCreateTableClassWithNullableDecimalProperty\r\n(\r\n    TheNullableDecimalProperty decimal(19,4) null\r\n)", result);
         }
 
         [Fact]
