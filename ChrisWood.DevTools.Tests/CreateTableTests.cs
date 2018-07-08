@@ -216,7 +216,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithUppercaseSqlSyntax_AndNotNull()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{SqlSyntaxIsUppercase = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions {SqlSyntaxIsUppercase = true});
 
             Assert.Equal("CREATE TABLE TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty INT NOT NULL\r\n)", result);
         }
@@ -224,7 +224,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithUppercaseSqlSyntax_AndNull()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithNullableIntProperty>(new CreateTableOptions{SqlSyntaxIsUppercase = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithNullableIntProperty>(new CreateTableOptions {SqlSyntaxIsUppercase = true});
 
             Assert.Equal("CREATE TABLE TestCreateTableClassWithNullableIntProperty\r\n(\r\n    TheNullableIntProperty INT NULL\r\n)", result);
         }
@@ -232,7 +232,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithIdentifierDelimiter()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitIdentifiers = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions {DelimitIdentifiers = true});
 
             Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    [TheIntProperty] int not null\r\n)", result);
         }
@@ -240,7 +240,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithTypeDelimiter()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitTypes = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions {DelimitTypes = true});
 
             Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    TheIntProperty [int] not null\r\n)", result);
         }
@@ -248,7 +248,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithIdentifierDelimiter_AndTypeDelimiter()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions{DelimitIdentifiers = true, DelimitTypes = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithIntProperty>(new CreateTableOptions {DelimitIdentifiers = true, DelimitTypes = true});
 
             Assert.Equal("create table TestCreateTableClassWithIntProperty\r\n(\r\n    [TheIntProperty] [int] not null\r\n)", result);
         }
@@ -256,7 +256,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithClassWithStringProperty_AndTypeDelimiter_AndDefaultTypeSize()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{DelimitTypes = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions {DelimitTypes = true});
 
             Assert.Equal("create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty [varchar](255) null\r\n)", result);
         }
@@ -274,7 +274,7 @@ namespace ChrisWood.DevTools.Tests
         [InlineData(int.MaxValue, "max")]
         public void ReturnsCreateTableScript_WithClassWithStringProperty_AndSize(int size, string expectedSize)
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharSize = size});
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions {VarcharSize = size});
 
             Assert.Equal($"create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar({expectedSize}) null\r\n)", result);
         }
@@ -282,7 +282,7 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithClassWithStringProperty_AndSize_AndUppercase()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharSize = 8001, SqlSyntaxIsUppercase = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions {VarcharSize = 8001, SqlSyntaxIsUppercase = true});
 
             Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty VARCHAR(MAX) NULL\r\n)", result);
         }
@@ -302,7 +302,7 @@ namespace ChrisWood.DevTools.Tests
         [InlineData(12, 16, "12,12")]
         public void ReturnsCreateTableScript_WithClassWithDecimalProperty_AndSize(int precision, int scale, string expectedSize)
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>(new CreateTableOptions{DecimalPrecision = precision, DecimalScale = scale});
+            var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>(new CreateTableOptions {DecimalPrecision = precision, DecimalScale = scale});
 
             Assert.Equal($"create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal({expectedSize}) not null\r\n)", result);
         }
@@ -315,17 +315,27 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("create table TestCreateTableClassWithMultipleProperties\r\n(\r\n    TheStringProperty varchar(255) null,\r\n    TheIntProperty int not null,\r\n    TheNullableDecimalProperty decimal(19,4) null,\r\n    TheDateTimeOffsetProperty datetimeoffset not null\r\n)", result);
         }
 
-        // generics and types
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_PassedAsType()
+        {
+            var result = CreateTable.Generate(typeof(TestCreateTableClassWithStringProperty));
+
+            Assert.Equal("create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar(255) null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_PassedAsType_AndOptions()
+        {
+            var result = CreateTable.Generate(typeof(TestCreateTableClassWithStringProperty), new CreateTableOptions {SqlSyntaxIsUppercase = true});
+
+            Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty VARCHAR(255) NULL\r\n)", result);
+        }
 
         // private properties don't appear
 
         // inherited properties
-        
-        // how to handle internal?
 
         // how to handle objects or enums?
-        
-        // nullable/notnullable
     }
 
     public class TestCreateTableClassWithoutProperties { }

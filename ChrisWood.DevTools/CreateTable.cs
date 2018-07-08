@@ -8,14 +8,28 @@ namespace ChrisWood.DevTools
     {
         public static string Generate<T>()
         {
-            return Generate<T>(CreateTableOptions.Default);
+            return GenerateInternal(typeof(T), CreateTableOptions.Default);
+        }
+
+        public static string Generate(Type type)
+        {
+            return GenerateInternal(type, CreateTableOptions.Default);
         }
 
         public static string Generate<T>(CreateTableOptions options)
         {
+            return GenerateInternal(typeof(T), options);
+        }
+
+        public static string Generate(Type type, CreateTableOptions options)
+        {
+            return GenerateInternal(type, options);
+        }
+
+        private static string GenerateInternal(Type type, CreateTableOptions options)
+        {
             var sb = new StringBuilder();
-            var type = typeof(T);
-            var tableName = typeof(T).Name;
+            var tableName = type.Name;
 
             sb.Append("create table ".ChangeCasing(options));
             sb.AppendLine(tableName);
@@ -23,7 +37,7 @@ namespace ChrisWood.DevTools
 
             var currentProperty = 0;
             var properties = type.GetProperties();
-            foreach (var property in properties) // get count, dont add , on last one
+            foreach (var property in properties)
             {
                 var identifier = options.DelimitIdentifiers ? $"[{property.Name}]" : property.Name;
 
