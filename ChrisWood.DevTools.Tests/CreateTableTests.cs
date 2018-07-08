@@ -331,6 +331,14 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty VARCHAR(255) NULL\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithVariousAccessProperties_OnlyPublicPropertiesAppear()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithVariusAccessProperties>();
+
+            Assert.Equal("create table TestCreateTableClassWithVariusAccessProperties\r\n(\r\n    ThePublicProperty varchar(255) null\r\n)", result);
+        }
+
         // private properties don't appear
 
         // inherited properties
@@ -471,5 +479,13 @@ namespace ChrisWood.DevTools.Tests
         public int TheIntProperty { get; set; }
         public decimal? TheNullableDecimalProperty { get; set; }
         public DateTimeOffset TheDateTimeOffsetProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithVariusAccessProperties
+    {
+        public string ThePublicProperty { get; set; }
+        private int ThePrivateProperty { get; set; }
+        internal DateTime TheInternalProperty { get; set; }
+        protected double TheProtectedProperty { get; set; }
     }
 }
