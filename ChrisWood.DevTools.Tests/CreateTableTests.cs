@@ -307,6 +307,13 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal($"create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal({expectedSize}) not null\r\n)", result);
         }
 
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithMultipleProperties()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithMultipleProperties>();
+
+            Assert.Equal("create table TestCreateTableClassWithMultipleProperties\r\n(\r\n    TheStringProperty varchar(255) null,\r\n    TheIntProperty int not null,\r\n    TheNullableDecimalProperty decimal(19,4) null,\r\n    TheDateTimeOffsetProperty datetimeoffset not null\r\n)", result);
+        }
 
         // generics and types
 
@@ -446,5 +453,13 @@ namespace ChrisWood.DevTools.Tests
     public class TestCreateTableClassWithNullableDateTimeOffsetProperty
     {
         public DateTimeOffset? TheNullableDateTimeOffsetProperty { get; set; }
+    }
+
+    public class TestCreateTableClassWithMultipleProperties
+    {
+        public string TheStringProperty { get; set; }
+        public int TheIntProperty { get; set; }
+        public decimal? TheNullableDecimalProperty { get; set; }
+        public DateTimeOffset TheDateTimeOffsetProperty { get; set; }
     }
 }

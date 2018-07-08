@@ -21,7 +21,9 @@ namespace ChrisWood.DevTools
             sb.AppendLine(tableName);
             sb.AppendLine("(");
 
-            foreach (var property in type.GetProperties())
+            var currentProperty = 0;
+            var properties = type.GetProperties();
+            foreach (var property in properties) // get count, dont add , on last one
             {
                 var identifier = options.DelimitIdentifiers ? $"[{property.Name}]" : property.Name;
 
@@ -33,7 +35,9 @@ namespace ChrisWood.DevTools
                 var isNullable = IsTypeNullable(property.PropertyType);
                 var nullField = (isNullable ? "null" : "not null").ChangeCasing(options);
 
-                sb.AppendLine($"    {identifier} {sqlTypeFormatted}{sizeField} {nullField}");
+                var comma = ++currentProperty < properties.Length ? "," : "";
+
+                sb.AppendLine($"    {identifier} {sqlTypeFormatted}{sizeField} {nullField}{comma}");
             }
 
             sb.Append(")");
