@@ -7,6 +7,8 @@
         public bool SqlSyntaxIsUppercase { get; set; }
         public bool DelimitIdentifiers { get; set; }
         public bool DelimitTypes { get; set; }
-        public int VarcharLength { get; set; } = 255;
+        public int VarcharSize { get; set; } = 255;
+        public int DecimalPrecision { get; set; } = 19;
+        public int DecimalScale { get; set; } = 4;
     }
 }

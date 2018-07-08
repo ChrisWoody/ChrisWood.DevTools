@@ -47,14 +47,31 @@ namespace ChrisWood.DevTools
 
             if (type == typeof(string))
             {
-                if (options.VarcharLength < 1)
-                    actualSize = "1";
-                else if (options.VarcharLength > 8000)
-                    actualSize = "max".ChangeCasing(options);
-                else
-                    actualSize = options.VarcharLength.ToString();
+                var varcharSize = options.VarcharSize.ToString();
 
-                return $"({actualSize})";
+                if (options.VarcharSize < 1)
+                    varcharSize = "1";
+                else if (options.VarcharSize > 8000)
+                    varcharSize = "max".ChangeCasing(options);
+
+                actualSize = $"({varcharSize})";
+            }
+            else if (type == typeof(decimal) || type == typeof(decimal?))
+            {
+                var precision = options.DecimalPrecision;
+                var scale = options.DecimalScale;
+
+                if (precision < 1)
+                    precision = 1;
+                if (precision > 38)
+                    precision = 38;
+
+                if (scale < 0)
+                    scale = 0;
+                if (scale > precision)
+                    scale = precision;
+
+                actualSize = $"({precision},{scale})";
             }
 
             return actualSize;
@@ -80,8 +97,8 @@ namespace ChrisWood.DevTools
             {typeof(bool?), "bit"},
             {typeof(char), "char"},
             {typeof(char?), "char"},
-            {typeof(decimal), "decimal(19,4)"},
-            {typeof(decimal?), "decimal(19,4)"},
+            {typeof(decimal), "decimal"},
+            {typeof(decimal?), "decimal"},
             {typeof(double), "float"},
             {typeof(double?), "float"},
             {typeof(float), "float"},

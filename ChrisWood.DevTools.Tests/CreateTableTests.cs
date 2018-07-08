@@ -254,7 +254,7 @@ namespace ChrisWood.DevTools.Tests
         }
 
         [Fact]
-        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndTypeDelimiter_AndDefaultTypeLength()
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndTypeDelimiter_AndDefaultTypeSize()
         {
             var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{DelimitTypes = true});
 
@@ -272,19 +272,39 @@ namespace ChrisWood.DevTools.Tests
         [InlineData(8001, "max")]
         [InlineData(9001, "max")]
         [InlineData(int.MaxValue, "max")]
-        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndLength(int length, string expectedLength)
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndSize(int size, string expectedSize)
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharLength = length});
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharSize = size});
 
-            Assert.Equal($"create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar({expectedLength}) null\r\n)", result);
+            Assert.Equal($"create table TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty varchar({expectedSize}) null\r\n)", result);
         }
 
         [Fact]
-        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndLength_AndUppercase()
+        public void ReturnsCreateTableScript_WithClassWithStringProperty_AndSize_AndUppercase()
         {
-            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharLength = 8001, SqlSyntaxIsUppercase = true});
+            var result = CreateTable.Generate<TestCreateTableClassWithStringProperty>(new CreateTableOptions{VarcharSize = 8001, SqlSyntaxIsUppercase = true});
 
             Assert.Equal("CREATE TABLE TestCreateTableClassWithStringProperty\r\n(\r\n    TheStringProperty VARCHAR(MAX) NULL\r\n)", result);
+        }
+
+        // SQL Decimal: Precision 1-38 inclusive, Scale 0-Precision inclusive
+        [Theory]
+        [InlineData(1, 0, "1,0")]
+        [InlineData(1, 1, "1,1")]
+        [InlineData(37, 0, "37,0")]
+        [InlineData(37, 37, "37,37")]
+        [InlineData(38, 0, "38,0")]
+        [InlineData(38, 1, "38,1")]
+        [InlineData(38, 38, "38,38")]
+        [InlineData(39, 0, "38,0")]
+        [InlineData(39, 38, "38,38")]
+        [InlineData(39, 39, "38,38")]
+        [InlineData(12, 16, "12,12")]
+        public void ReturnsCreateTableScript_WithClassWithDecimalProperty_AndSize(int precision, int scale, string expectedSize)
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithDecimalProperty>(new CreateTableOptions{DecimalPrecision = precision, DecimalScale = scale});
+
+            Assert.Equal($"create table TestCreateTableClassWithDecimalProperty\r\n(\r\n    TheDecimalProperty decimal({expectedSize}) not null\r\n)", result);
         }
 
 
