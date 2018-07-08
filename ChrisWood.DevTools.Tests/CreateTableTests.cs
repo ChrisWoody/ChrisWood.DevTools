@@ -339,9 +339,13 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("create table TestCreateTableClassWithVariusAccessProperties\r\n(\r\n    ThePublicProperty varchar(255) null\r\n)", result);
         }
 
-        // private properties don't appear
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassThatInheritsAnotherClass()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassThatInheritsAnotherClass>();
 
-        // inherited properties
+            Assert.Equal("create table TestCreateTableClassThatInheritsAnotherClass\r\n(\r\n    TheInheritedProperty varchar(255) null\r\n)", result);
+        }
 
         // how to handle objects or enums?
     }
@@ -487,5 +491,15 @@ namespace ChrisWood.DevTools.Tests
         private int ThePrivateProperty { get; set; }
         internal DateTime TheInternalProperty { get; set; }
         protected double TheProtectedProperty { get; set; }
+    }
+
+    public abstract class TestCreateTableClassThatInheritsAnotherClassBase
+    {
+        public string TheInheritedProperty { get; set; }
+    }
+
+    public class TestCreateTableClassThatInheritsAnotherClass : TestCreateTableClassThatInheritsAnotherClassBase
+    {
+
     }
 }
