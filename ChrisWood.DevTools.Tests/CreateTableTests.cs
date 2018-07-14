@@ -379,7 +379,13 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("create table TestCreateTableClassWithEnumPropertyAndInheritingLong\r\n(\r\n    TheEnumLongProperty bigint not null\r\n)", result);
         }
 
-        // how to handle objects?
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithPropertyWithUnsupportedType()
+        {
+            var result = CreateTable.Generate<WithClassWithPropertyWithUnsupportedType>();
+
+            Assert.Equal("create table WithClassWithPropertyWithUnsupportedType\r\n(\r\n    TheUnsupportedProperty varchar(max) null\r\n)", result);
+        }
     }
 
     public class TestCreateTableClassWithoutProperties { }
@@ -573,5 +579,10 @@ namespace ChrisWood.DevTools.Tests
     public enum TestCreateTableClassWithEnumPropertyAndInheritingLongEnum : long
     {
 
+    }
+
+    public class WithClassWithPropertyWithUnsupportedType
+    {
+        public object TheUnsupportedProperty { get; set; }
     }
 }

@@ -68,7 +68,10 @@ namespace ChrisWood.DevTools
                 return EnumTypeToSqlTypeMap[underlyingEnumType];
             }
 
-            return TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
+            if (TypeToSqlTypeMap.TryGetValue(property.PropertyType, out var result))
+                return result.ChangeCasing(options);
+
+            return "varchar".ChangeCasing(options);
         }
 
         private static string GetSizeField(Type type, CreateTableOptions options)
@@ -102,6 +105,10 @@ namespace ChrisWood.DevTools
                     scale = precision;
 
                 actualSize = $"({precision},{scale})";
+            }
+            else if (!type.IsEnum && !TypeToSqlTypeMap.ContainsKey(type))
+            {
+                actualSize = "(max)".ChangeCasing(options);
             }
 
             return actualSize;
