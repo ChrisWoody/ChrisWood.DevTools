@@ -347,7 +347,39 @@ namespace ChrisWood.DevTools.Tests
             Assert.Equal("create table TestCreateTableClassThatInheritsAnotherClass\r\n(\r\n    TheInheritedProperty varchar(255) null\r\n)", result);
         }
 
-        // how to handle objects or enums?
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithEnumProperty_AndInheritingByte()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithEnumPropertyAndInheritingByte>();
+
+            Assert.Equal("create table TestCreateTableClassWithEnumPropertyAndInheritingByte\r\n(\r\n    TheEnumByteProperty tinyint not null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithEnumProperty_AndInheritingShort()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithEnumPropertyAndInheritingShort>();
+
+            Assert.Equal("create table TestCreateTableClassWithEnumPropertyAndInheritingShort\r\n(\r\n    TheEnumShortProperty smallint not null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithEnumProperty_AndInheritingInt()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithEnumPropertyAndInheritingInt>();
+
+            Assert.Equal("create table TestCreateTableClassWithEnumPropertyAndInheritingInt\r\n(\r\n    TheEnumIntProperty int not null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_WithClassWithEnumProperty_AndInheritingLong()
+        {
+            var result = CreateTable.Generate<TestCreateTableClassWithEnumPropertyAndInheritingLong>();
+
+            Assert.Equal("create table TestCreateTableClassWithEnumPropertyAndInheritingLong\r\n(\r\n    TheEnumLongProperty bigint not null\r\n)", result);
+        }
+
+        // how to handle objects?
     }
 
     public class TestCreateTableClassWithoutProperties { }
@@ -499,6 +531,46 @@ namespace ChrisWood.DevTools.Tests
     }
 
     public class TestCreateTableClassThatInheritsAnotherClass : TestCreateTableClassThatInheritsAnotherClassBase
+    {
+
+    }
+
+    public class TestCreateTableClassWithEnumPropertyAndInheritingByte
+    {
+        public TestCreateTableClassWithEnumPropertyAndInheritingByteEnum TheEnumByteProperty { get; set; }
+    }
+
+    public enum TestCreateTableClassWithEnumPropertyAndInheritingByteEnum : byte
+    {
+
+    }
+
+    public class TestCreateTableClassWithEnumPropertyAndInheritingShort
+    {
+        public TestCreateTableClassWithEnumPropertyAndInheritingShortEnum TheEnumShortProperty { get; set; }
+    }
+
+    public enum TestCreateTableClassWithEnumPropertyAndInheritingShortEnum : short
+    {
+
+    }
+
+    public class TestCreateTableClassWithEnumPropertyAndInheritingInt
+    {
+        public TestCreateTableClassWithEnumPropertyAndInheritingIntEnum TheEnumIntProperty { get; set; }
+    }
+
+    public enum TestCreateTableClassWithEnumPropertyAndInheritingIntEnum : int
+    {
+
+    }
+
+    public class TestCreateTableClassWithEnumPropertyAndInheritingLong
+    {
+        public TestCreateTableClassWithEnumPropertyAndInheritingLongEnum TheEnumLongProperty { get; set; }
+    }
+
+    public enum TestCreateTableClassWithEnumPropertyAndInheritingLongEnum : long
     {
 
     }

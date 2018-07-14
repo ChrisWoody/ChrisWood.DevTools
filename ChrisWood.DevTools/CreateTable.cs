@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace ChrisWood.DevTools
@@ -41,7 +42,7 @@ namespace ChrisWood.DevTools
             {
                 var identifier = options.DelimitIdentifiers ? $"[{property.Name}]" : property.Name;
 
-                var sqlType = TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
+                var sqlType = GetSqlType(options, property);
                 var sqlTypeFormatted = options.DelimitTypes ? $"[{sqlType}]" : sqlType;
 
                 var sizeField = GetSizeField(property.PropertyType, options);
@@ -57,6 +58,17 @@ namespace ChrisWood.DevTools
             sb.Append(")");
 
             return sb.ToString();
+        }
+
+        private static string GetSqlType(CreateTableOptions options, PropertyInfo property)
+        {
+            if (property.PropertyType.IsEnum)
+            {
+                var underlyingEnumType = Enum.GetUnderlyingType(property.PropertyType);
+                return EnumTypeToSqlTypeMap[underlyingEnumType];
+            }
+
+            return TypeToSqlTypeMap[property.PropertyType].ChangeCasing(options);
         }
 
         private static string GetSizeField(Type type, CreateTableOptions options)
@@ -127,6 +139,14 @@ namespace ChrisWood.DevTools
             {typeof(DateTime?), "datetime2"},
             {typeof(DateTimeOffset), "datetimeoffset"},
             {typeof(DateTimeOffset?), "datetimeoffset"},
+        };
+
+        private static readonly Dictionary<Type, string> EnumTypeToSqlTypeMap = new Dictionary<Type, string>
+        {
+            {typeof(byte), "tinyint"},
+            {typeof(short), "smallint"},
+            {typeof(int), "int"},
+            {typeof(long), "bigint"},
         };
 
         private static string ChangeCasing(this string value, CreateTableOptions options)
