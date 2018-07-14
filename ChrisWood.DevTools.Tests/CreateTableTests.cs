@@ -382,9 +382,81 @@ namespace ChrisWood.DevTools.Tests
         [Fact]
         public void ReturnsCreateTableScript_WithClassWithPropertyWithUnsupportedType()
         {
-            var result = CreateTable.Generate<WithClassWithPropertyWithUnsupportedType>();
+            var result = CreateTable.Generate<TestClassWithPropertyWithUnsupportedType>();
 
-            Assert.Equal("create table WithClassWithPropertyWithUnsupportedType\r\n(\r\n    TheUnsupportedProperty varchar(max) null\r\n)", result);
+            Assert.Equal("create table TestClassWithPropertyWithUnsupportedType\r\n(\r\n    TheUnsupportedProperty varchar(max) null\r\n)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_TestClassWithTwoProperties_WithPrimaryKeyClusteredOption_WithFirstPropertyAsPrimaryKey()
+        {
+            var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true});
+
+            Assert.Equal(
+@"create table TestClassWithTwoProperties
+(
+    TheIntProperty int not null,
+    TheBoolProperty bit not null,
+
+    constraint PK_TheIntProperty primary key clustered
+    (
+        TheIntProperty asc
+    )
+)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_TestClassWithTwoProperties_WithPrimaryKeyClusteredOption_WithFirstPropertyAsPrimaryKey_AndUppercase()
+        {
+            var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true, SqlSyntaxIsUppercase = true});
+
+            Assert.Equal(
+@"CREATE TABLE TestClassWithTwoProperties
+(
+    TheIntProperty INT NOT NULL,
+    TheBoolProperty BIT NOT NULL,
+
+    CONSTRAINT PK_TheIntProperty PRIMARY KEY CLUSTERED
+    (
+        TheIntProperty ASC
+    )
+)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_TestClassWithTwoProperties_WithPrimaryKeyClusteredOption_WithFirstPropertyAsPrimaryKey_AndIdentifierDelimited()
+        {
+            var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true, DelimitIdentifiers = true});
+
+            Assert.Equal(
+@"create table TestClassWithTwoProperties
+(
+    [TheIntProperty] int not null,
+    [TheBoolProperty] bit not null,
+
+    constraint [PK_TheIntProperty] primary key clustered
+    (
+        [TheIntProperty] asc
+    )
+)", result);
+        }
+
+        [Fact]
+        public void ReturnsCreateTableScript_TestClassWithTwoProperties_WithPrimaryKeyClusteredOption_WithFirstPropertyAsPrimaryKey_AndUppercase_AndIdentifierDelimited()
+        {
+            var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions { IncludePrimaryKeyClusteredConstraint = true, SqlSyntaxIsUppercase = true, DelimitIdentifiers = true});
+
+            Assert.Equal(
+@"CREATE TABLE TestClassWithTwoProperties
+(
+    [TheIntProperty] INT NOT NULL,
+    [TheBoolProperty] BIT NOT NULL,
+
+    CONSTRAINT [PK_TheIntProperty] PRIMARY KEY CLUSTERED
+    (
+        [TheIntProperty] ASC
+    )
+)", result);
         }
     }
 
@@ -581,8 +653,14 @@ namespace ChrisWood.DevTools.Tests
 
     }
 
-    public class WithClassWithPropertyWithUnsupportedType
+    public class TestClassWithPropertyWithUnsupportedType
     {
         public object TheUnsupportedProperty { get; set; }
+    }
+
+    public class TestClassWithTwoProperties
+    {
+        public int TheIntProperty { get; set; }
+        public bool TheBoolProperty { get; set; }
     }
 }

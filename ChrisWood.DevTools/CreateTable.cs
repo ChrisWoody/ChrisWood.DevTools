@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -50,9 +51,28 @@ namespace ChrisWood.DevTools
                 var isNullable = IsTypeNullable(property.PropertyType);
                 var nullField = (isNullable ? "null" : "not null").ChangeCasing(options);
 
-                var comma = ++currentProperty < properties.Length ? "," : "";
+                var comma = ++currentProperty < properties.Length || options.IncludePrimaryKeyClusteredConstraint
+                    ? ","
+                    : "";
 
                 sb.AppendLine($"    {identifier} {sqlTypeFormatted}{sizeField} {nullField}{comma}");
+            }
+
+            if (options.IncludePrimaryKeyClusteredConstraint && properties.Any())
+            {
+                sb.AppendLine("");
+
+                var propertyName = properties[0].Name;
+                var identifier = options.DelimitIdentifiers ? $"[{propertyName}]" :  $"{propertyName}";
+                var pkIdentifier = options.DelimitIdentifiers ? $"[PK_{propertyName}]" :  $"PK_{propertyName}";
+
+                var constraintFormat = "    constraint {0} primary key clustered".ChangeCasing(options);
+                var primaryKeyFormat = "        {0} asc".ChangeCasing(options);
+
+                sb.AppendLine(string.Format(constraintFormat, pkIdentifier));
+                sb.AppendLine("    (");
+                sb.AppendLine(string.Format(primaryKeyFormat, identifier));
+                sb.AppendLine("    )");
             }
 
             sb.Append(")");

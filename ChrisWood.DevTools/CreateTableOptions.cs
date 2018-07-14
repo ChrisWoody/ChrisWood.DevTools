@@ -10,5 +10,6 @@
         public int VarcharSize { get; set; } = 255;
         public int DecimalPrecision { get; set; } = 19;
         public int DecimalScale { get; set; } = 4;
+        public bool IncludePrimaryKeyClusteredConstraint { get; set; }
     }
 }
