@@ -392,17 +392,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true});
 
-            Assert.Equal(
-@"create table TestClassWithTwoProperties
-(
-    TheIntProperty int not null,
-    TheBoolProperty bit not null,
-
-    constraint PK_TheIntProperty primary key clustered
-    (
-        TheIntProperty asc
-    )
-)", result);
+            Assert.Equal("create table TestClassWithTwoProperties\r\n(\r\n    TheIntProperty int not null,\r\n    TheBoolProperty bit not null,\r\n\r\n    constraint PK_TheIntProperty primary key clustered\r\n    (\r\n        TheIntProperty asc\r\n    )\r\n)", result);
         }
 
         [Fact]
@@ -410,17 +400,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true, SqlSyntaxIsUppercase = true});
 
-            Assert.Equal(
-@"CREATE TABLE TestClassWithTwoProperties
-(
-    TheIntProperty INT NOT NULL,
-    TheBoolProperty BIT NOT NULL,
-
-    CONSTRAINT PK_TheIntProperty PRIMARY KEY CLUSTERED
-    (
-        TheIntProperty ASC
-    )
-)", result);
+            Assert.Equal("CREATE TABLE TestClassWithTwoProperties\r\n(\r\n    TheIntProperty INT NOT NULL,\r\n    TheBoolProperty BIT NOT NULL,\r\n\r\n    CONSTRAINT PK_TheIntProperty PRIMARY KEY CLUSTERED\r\n    (\r\n        TheIntProperty ASC\r\n    )\r\n)", result);
         }
 
         [Fact]
@@ -428,17 +408,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions{IncludePrimaryKeyClusteredConstraint = true, DelimitIdentifiers = true});
 
-            Assert.Equal(
-@"create table TestClassWithTwoProperties
-(
-    [TheIntProperty] int not null,
-    [TheBoolProperty] bit not null,
-
-    constraint [PK_TheIntProperty] primary key clustered
-    (
-        [TheIntProperty] asc
-    )
-)", result);
+            Assert.Equal("create table TestClassWithTwoProperties\r\n(\r\n    [TheIntProperty] int not null,\r\n    [TheBoolProperty] bit not null,\r\n\r\n    constraint [PK_TheIntProperty] primary key clustered\r\n    (\r\n        [TheIntProperty] asc\r\n    )\r\n)", result);
         }
 
         [Fact]
@@ -446,17 +416,7 @@ namespace ChrisWood.DevTools.Tests
         {
             var result = CreateTable.Generate<TestClassWithTwoProperties>(new CreateTableOptions { IncludePrimaryKeyClusteredConstraint = true, SqlSyntaxIsUppercase = true, DelimitIdentifiers = true});
 
-            Assert.Equal(
-@"CREATE TABLE TestClassWithTwoProperties
-(
-    [TheIntProperty] INT NOT NULL,
-    [TheBoolProperty] BIT NOT NULL,
-
-    CONSTRAINT [PK_TheIntProperty] PRIMARY KEY CLUSTERED
-    (
-        [TheIntProperty] ASC
-    )
-)", result);
+            Assert.Equal("CREATE TABLE TestClassWithTwoProperties\r\n(\r\n    [TheIntProperty] INT NOT NULL,\r\n    [TheBoolProperty] BIT NOT NULL,\r\n\r\n    CONSTRAINT [PK_TheIntProperty] PRIMARY KEY CLUSTERED\r\n    (\r\n        [TheIntProperty] ASC\r\n    )\r\n)", result);
         }
     }
 
